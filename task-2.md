@@ -81,8 +81,8 @@ CREATE TABLE books(
 
 
 - Within mysql>
-1.  SHOW DATABASES;
-2.  USE books;
+1.SHOW DATABASES;
+2.USE books;
 3.
 ```
 CREATE TABLE books(
@@ -94,7 +94,7 @@ CREATE TABLE books(
 ```
 
 
-4. SHOW TABLES;
+4.SHOW TABLES;
 
 ```
 +--------------------+
