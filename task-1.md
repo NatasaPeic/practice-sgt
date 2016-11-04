@@ -19,7 +19,7 @@ Install MySQL and become familiar with running some simple sql queries. Use a GA
 - mysql> was running properly;
 
 
-## List of commands and queires
+## List of commands
 
 1. SHOW DATABASES;
 ```
@@ -48,18 +48,23 @@ Install MySQL and become familiar with running some simple sql queries. Use a GA
 ```
 
 4. USE practice;
-5. CREATE TABLE IF NOT EXISTS products (
-    - productID INT UNSIGNED NOT NULL AUTO_INCREMENT,
-    - productCode CHAR(3) NOT NULL DEFAULT '',
-    - name VARCHAR(30) NOT NULL DEFAULT '',
-    - quantity INT UNSIGNED NOT NULL DEFAULT 0,
-    - price DECIMAL(7,2) NOT NULL DEFAULT 99999.99,
-    - PRIMARY KEY (productID)
-    - );
+5. Create table;
+
+```
+CREATE TABLE IF NOT EXISTS products (
+    -> productID INT UNSIGNED NOT NULL AUTO_INCREMENT,
+    -> productCode CHAR(3) NOT NULL DEFAULT '',
+    -> name VARCHAR(30) NOT NULL DEFAULT '',
+    -> quantity INT UNSIGNED NOT NULL DEFAULT 0,
+    -> price DECIMAL(7,2) NOT NULL DEFAULT 99999.99,
+    -> PRIMARY KEY (productID)
+    -> );
+```
 
 
 
-Pulse check:
+PULSE CHECK:
+
 - INT UNSIGNED - non-negative integers;
 -  CHAR(3) - a fixed-length alphanumeric string of 3 characters;
 - VARCHAR(30) - a variable-length string of up to 30 characters (variable-length string for name varies);
@@ -91,14 +96,17 @@ Pulse check:
 +-------------+------------------+------+-----+----------+----------------+
 ```
 
-8. INSERT INTO products VALUES
-    - (NULL, 'PEN', 'Pen Blue',  8000, 1.25),
-    - (NULL, 'PEN', 'Pen Black', 2000, 1.25);
+8. Insert records;
+```
+INSERT INTO products VALUES
+    -> (NULL, 'PEN', 'Pen Blue',  8000, 1.25),
+    -> (NULL, 'PEN', 'Pen Black', 2000, 1.25);
 
     INSERT INTO products VALUES
-    - (NULL, 'PEN', 'Pen Blue',  8000, 1.25);
+    -> (NULL, 'PEN', 'Pen Blue',  8000, 1.25);
 
     INSERT INTO products (productCode, name) VALUES ('PEC', 'Pencil HB');
+```
 
 9. SELECT * FROM products;
 ```
@@ -272,5 +280,5 @@ Pulse check:
 ```
 
 
-TO DO:
+TO DO LIST:
 - import csv file and run similar commands;
