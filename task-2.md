@@ -81,9 +81,9 @@ CREATE TABLE books(
 
 
 - Within mysql>
-  SHOW DATABASES;
-  USE books;
-
+1.  SHOW DATABASES;
+2.  USE books;
+3.
 ```
 CREATE TABLE books(
  id INT PRIMARY KEY AUTO_INCREMENT,
@@ -94,7 +94,7 @@ CREATE TABLE books(
 ```
 
 
-  SHOW TABLES;
+4. SHOW TABLES;
 
 ```
 +--------------------+
@@ -105,7 +105,7 @@ CREATE TABLE books(
 ```
 
 
-  DESCRIBE books;
+5. DESCRIBE books;
 
 ```
 +--------+--------------+------+-----+---------+----------------+
