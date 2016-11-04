@@ -95,7 +95,7 @@ CREATE TABLE books(
 ```
 
 
-4.SHOW TABLES;
+4. SHOW TABLES;
 
 ```
 +--------------------+
