@@ -69,7 +69,20 @@ Database needs to be created.
 touch schema.sql
 ```
 
-Paste the following:
+Create table books;
+```
+CREATE TABLE books(
+ id INT PRIMARY KEY AUTO_INCREMENT,
+ author VARCHAR(100) NOT NULL,
+ title  VARCHAR(100) NOT NULL,
+ body   TEXT         NOT NULL
+);
+```
+
+
+- Within mysql>
+  SHOW DATABASES;
+  USE books;
 
 ```
 CREATE TABLE books(
@@ -81,22 +94,7 @@ CREATE TABLE books(
 ```
 
 
-- SHOW DATABASES;
-- USE books;
-
-- Create table within schema.sql for the reference, and paste it in mysql (terminal);
-
-```
-CREATE TABLE books(
- id INT PRIMARY KEY AUTO_INCREMENT,
- author VARCHAR(100) NOT NULL,
- title  VARCHAR(100) NOT NULL,
- body   TEXT         NOT NULL
-);
-```
-
-
-- SHOW TABLES;
+  SHOW TABLES;
 
 ```
 +--------------------+
@@ -107,7 +105,7 @@ CREATE TABLE books(
 ```
 
 
-- DESCRIBE books;
+  DESCRIBE books;
 
 ```
 +--------+--------------+------+-----+---------+----------------+
@@ -128,7 +126,7 @@ CREATE TABLE books(
 var book = {
  author: 'Carl Sagan',
  title: 'Cosmos',
- body: 'Magnificent . . . With a lyrical literary style, and a range that touches almost all aspects of human knowledge, Cosmos often seems too good to be true.—The Plain Dealer'
+ body: 'Cosmos has 13 heavily illustrated chapters, corresponding to the 13 episodes of the Cosmos television series. In the book, Sagan explores 15 billion years of cosmic evolution and the development of science and civilization. Cosmos traces the origins of knowledge and the scientific method, mixing science and philosophy, and speculates to the future of science. The book also discusses the underlying premises of science by providing biographical anecdotes about many prominent scientists throughout history, placing their contributions into the broader context of the development of modern science.'
 };
 ```
 
@@ -144,6 +142,7 @@ Terminal:
 ```
 ~/sgt/excercise-mysql-nodeJS/browser-template-master (master)$ node assets/scripts/insert.js
 insert into books set `author` = 'Carl Sagan', `title` = 'Cosmos', `body` = 'Cosmos has 13 heavily illustrated chapters, corresponding to the 13 episodes of the Cosmos television series. In the book, Sagan explores 15 billion years of cosmic evolution and the development of science and civilization. Cosmos traces the origins of knowledge and the scientific method, mixing science and philosophy, and speculates to the future of science. The book also discusses the underlying premises of science by providing biographical anecdotes about many prominent scientists throughout history, placing their contributions into the broader context of the development of modern science.'
+```
 
 - Handle errors and result;
 
