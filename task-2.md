@@ -218,7 +218,7 @@ var connection = mysql.createConnection({
 
 connection.connect();
 
-connection.query('select * from books', function(err, result){
+connection.query('select * from books where id = 1', function(err, result){
 
   if(err){
     console.error(err);
