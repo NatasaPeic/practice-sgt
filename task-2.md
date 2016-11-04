@@ -3,32 +3,32 @@ Install Node.js and services for database and make some queries via node.js
 
 ## Steps
 
-1. Install MySQL;
+- Install MySQL;
 
 ```
 npm install mysql;
 ```
 
-2. Create a new file that will be used to insert a record into database
+- Create a new file that will be used to insert a record into database
 
 ```
 touch insert.js
 ```
 
-3. Create a new file that will be used to retreive data
+- Create a new file that will be used to retreive data
 
 ```
 touch select.js
 ```
 
-4. Add reference to MySQL using require
+- Add reference to MySQL using require
 
 
 ```insert.js
 var mysql = require('mysql');
 ```
 
-5. Create variable connection to create connection, and use createConnection function and pass options. After that we will be connection to the database.
+- Create variable connection to create connection, and use createConnection function and pass options. After that we will be connection to the database.
 
 ```
 var connection = mysql.createConnection({
@@ -41,7 +41,7 @@ var connection = mysql.createConnection({
 connection.connect();
 ```
 
-6. Running the command in terminal
+- Running the command in terminal
 
 ```
 node assets/scripts/insert.js
@@ -55,15 +55,15 @@ Error: ER_BAD_DB_ERROR: Unknown database 'books'
 
 Database needs to be created.
 
-7. cd /usr/local/mysql/bin;
+- cd /usr/local/mysql/bin;
 
-8. ./mysql -u root -p;
+- ./mysql -u root -p;
 
-9. CREATE DATABASE books;
+- CREATE DATABASE books;
 
-10. Run node assets/scripts/insert.js (no errors);
+- Run node assets/scripts/insert.js (no errors);
 
-11. Create schema.sql;
+- Create schema.sql;
 
 ```
 touch schema.sql
@@ -80,11 +80,11 @@ CREATE TABLE books(
 );
 ```
 
-12. MySQL in terminal:
+
 - SHOW DATABASES;
 - USE books;
 
-13. Create table within schema.sql for the reference, and paste it in mysql (terminal);
+- Create table within schema.sql for the reference, and paste it in mysql (terminal);
 
 ```
 CREATE TABLE books(
@@ -96,7 +96,7 @@ CREATE TABLE books(
 ```
 
 
-13. SHOW TABLES;
+- SHOW TABLES;
 
 ```
 +--------------------+
@@ -107,7 +107,7 @@ CREATE TABLE books(
 ```
 
 
-14. DESCRIBE books;
+- DESCRIBE books;
 
 ```
 +--------+--------------+------+-----+---------+----------------+
@@ -122,7 +122,7 @@ CREATE TABLE books(
 
 
 
-15. To insert record, create JavaScript object within insert.js;
+- To insert record, create JavaScript object within insert.js;
 
 ```
 var book = {
@@ -132,7 +132,7 @@ var book = {
 };
 ```
 
-16. Instead of using database, use query() method and insert record into database;
+- Instead of using database, use query() method and insert record into database;
 
 ```
 var query = connection.query('insert into books set ?', book, function(err, result){
@@ -141,10 +141,11 @@ var query = connection.query('insert into books set ?', book, function(err, resu
 
 Terminal:
 
+```
 ~/sgt/excercise-mysql-nodeJS/browser-template-master (master)$ node assets/scripts/insert.js
-insert into books set `author` = 'Carl Sagan', `title` = 'Cosmos', `body` = 'Magnificent . . . With a lyrical literary style, and a range that touches almost all aspects of human knowledge, Cosmos often seems too good to be true.”—The Plain Dealer'
+insert into books set `author` = 'Carl Sagan', `title` = 'Cosmos', `body` = 'Cosmos has 13 heavily illustrated chapters, corresponding to the 13 episodes of the Cosmos television series. In the book, Sagan explores 15 billion years of cosmic evolution and the development of science and civilization. Cosmos traces the origins of knowledge and the scientific method, mixing science and philosophy, and speculates to the future of science. The book also discusses the underlying premises of science by providing biographical anecdotes about many prominent scientists throughout history, placing their contributions into the broader context of the development of modern science.'
 
-17. Handle errors and result;
+- Handle errors and result;
 
 ```
 var query = connection.query('insert into books set ?', book, function(err, result){
@@ -157,9 +158,11 @@ var query = connection.query('insert into books set ?', book, function(err, resu
 ```
 
 
-18. Run node assets/scripts/insert.js;
+- Run node assets/scripts/insert.js;
 
+```
 ~/sgt/excercise-mysql-nodeJS/browser-template-master (master)$ node assets/scripts/insert.js
+
 OkPacket {
  fieldCount: 0,
  affectedRows: 2,
@@ -169,8 +172,9 @@ OkPacket {
  message: '',
  protocol41: true,
  changedRows: 0 }
+ ```
 
-19. Check MySQL database by running: SELECT * FROM books \G
+- Check MySQL database by running: SELECT * FROM books \G
 
 Books are inserted.
 
@@ -186,5 +190,3 @@ author: William Shakespeare
 title: Hamlet
  body: The Tragedy of Hamlet, Prince of Denmark, or more simply Hamlet, is a tragedy by William Shakespeare, believed to have been written between 1599 and 1601. The play, set in Denmark, recounts how Prince Hamlet exacts revenge on his uncle Claudius, who has murdered Hamlet father, the King, and then taken the throne and married Gertrude, Hamles mother. The play vividly charts the course of real and feigned madness—from overwhelming grief to seething rage—and explores themes of treachery, revenge, incest, and moral corruption.
 ```
-
-20.
