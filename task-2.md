@@ -1,6 +1,11 @@
 Install Node.js and services for database and make some queries via node.js
 
 
+For the purpose of this practice, data is hard coded. That is rarely a case, and I will look into writing a script that doesn't require hard coded data. I used open source project called `mysql`. It is a JavaScript client implementing MySQL protocol.
+
+- https://www.npmjs.com/package/mysql
+- https://github.com/mysqljs/mysql
+
 ## Steps
 
 - Install MySQL;
@@ -189,4 +194,46 @@ title: Cosmos
 author: William Shakespeare
 title: Hamlet
  body: The Tragedy of Hamlet, Prince of Denmark, or more simply Hamlet, is a tragedy by William Shakespeare, believed to have been written between 1599 and 1601. The play, set in Denmark, recounts how Prince Hamlet exacts revenge on his uncle Claudius, who has murdered Hamlet father, the King, and then taken the throne and married Gertrude, Hamles mother. The play vividly charts the course of real and feigned madness—from overwhelming grief to seething rage—and explores themes of treachery, revenge, incest, and moral corruption.
+```
+
+
+- To retreive data, create another query in select.js using the same approach;
+
+```
+var mysql = require('mysql');
+
+var connection = mysql.createConnection({
+  host: 'localhost',
+  user: 'root',
+  password: 'root',
+  database: 'books'
+});
+
+connection.connect();
+
+connection.query('select * from books', function(err, result){
+
+  if(err){
+    console.error(err);
+    return;
+  }
+  console.error(result);
+});
+```
+
+- - Run node assets/scripts/select.js;
+
+```
+~/sgt/excercise-mysql-nodeJS/browser-template-master (master)$ node assets/scripts/select.js
+[ RowDataPacket {
+    id: 1,
+    author: 'Carl Sagan',
+    title: 'Cosmos',
+    body: 'Cosmos has 13 heavily illustrated chapters, corresponding to the 13 episodes of the Cosmos television series. In the book, Sagan explores 15 billion years of cosmic evolution and the development of science and civilization. Cosmos traces the origins of knowledge and the scientific method, mixing science and philosophy, and speculates to the future of science. The book also discusses the underlying premises of science by providing biographical anecdotes about many prominent scientists throughout history, placing their contributions into the broader context of the development of modern science.' },
+  RowDataPacket {
+    id: 2,
+    author: 'William Shakespeare',
+    title: 'Hamlet',
+    body: 'The Tragedy of Hamlet, Prince of Denmark, or more simply Hamlet, is a tragedy by William Shakespeare, believed to have been written between 1599 and 1601. The play, set in Denmark, recounts how Prince Hamlet exacts revenge on his uncle Claudius, who has murdered Hamlet father, the King, and then taken the throne and married Gertrude, Hamles mother. The play vividly charts the course of real and feigned madness—from overwhelming grief to seething rage—and explores themes of treachery, revenge, incest, and moral corruption.' },
+   ]
 ```
