@@ -106,7 +106,10 @@ CREATE TABLE books(
 ```
 
 
-4. SHOW TABLES;
+```
+SHOW TABLES;
+```
+
 
 ```
 +--------------------+
@@ -117,7 +120,10 @@ CREATE TABLE books(
 ```
 
 
-5. DESCRIBE books;
+```
+DESCRIBE books;
+```
+
 
 ```
 +--------+--------------+------+-----+---------+----------------+
@@ -161,6 +167,7 @@ Terminal:
 ```
 ~/sgt/excercise-mysql-nodeJS/browser-template-master (master)$ node assets/scripts/insert.js
 insert into books set `author` = 'Carl Sagan', `title` = 'Cosmos', `body` = 'Cosmos has 13 heavily illustrated chapters, corresponding to the 13 episodes of the Cosmos television series. In the book, Sagan explores 15 billion years of cosmic evolution and the development of science and civilization. Cosmos traces the origins of knowledge and the scientific method, mixing science and philosophy, and speculates to the future of science. The book also discusses the underlying premises of science by providing biographical anecdotes about many prominent scientists throughout history, placing their contributions into the broader context of the development of modern science.'
+insert into books set `author` = 'William Shakespeare', `title` = 'Hamlet', `body` = 'The Tragedy of Hamlet, Prince of Denmark, or more simply Hamlet, is a tragedy by William Shakespeare, believed to have been written between 1599 and 1601. The play, set in Denmark, recounts how Prince Hamlet exacts revenge on his uncle Claudius, who has murdered Hamlet father, the King, and then taken the throne and married Gertrude, Hamles mother. The play vividly charts the course of real and feigned madness—from overwhelming grief to seething rage—and explores themes of treachery, revenge, incest, and moral corruption.'
 ```
 
 - Handle errors and result;
