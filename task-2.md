@@ -1,3 +1,4 @@
+## TASK #2
 Install Node.js and services for database and make some queries via node.js
 
 
@@ -6,7 +7,7 @@ For the purpose of this practice, data is hard coded. That is rarely a case, and
 - https://www.npmjs.com/package/mysql
 - https://github.com/mysqljs/mysql
 
-## Steps
+## STEPS
 
 - Install MySQL;
 
@@ -46,7 +47,7 @@ var connection = mysql.createConnection({
 connection.connect();
 ```
 
-- Running the command in terminal
+- Run the command in terminal
 
 ```
 node assets/scripts/insert.js
@@ -85,10 +86,15 @@ CREATE TABLE books(
 ```
 
 
-- Within mysql>
-1. SHOW DATABASES;
-2. USE books;
-3. CREATE TABLE ...
+- mysql>
+```
+SHOW DATABASES;
+```
+
+```
+USE books;
+```
+
 
 ```
 CREATE TABLE books(
@@ -170,7 +176,12 @@ var query = connection.query('insert into books set ?', book, function(err, resu
 ```
 
 
-- Run node assets/scripts/insert.js;
+- Run the command in terminal
+
+```
+node assets/scripts/insert.js;
+```
+
 
 ```
 ~/sgt/excercise-mysql-nodeJS/browser-template-master (master)$ node assets/scripts/insert.js
@@ -186,7 +197,11 @@ OkPacket {
  changedRows: 0 }
  ```
 
-- Check MySQL database by running: SELECT * FROM books \G
+- Check MySQL database by running:
+
+```
+SELECT * FROM books \G
+```
 
 Books are inserted.
 
@@ -228,7 +243,12 @@ connection.query('select * from books where id = 1', function(err, result){
 });
 ```
 
-- - Run node assets/scripts/select.js;
+-  Run the command in terminal
+
+```
+node assets/scripts/select.js;
+```
+
 
 ```
 ~/sgt/excercise-mysql-nodeJS/browser-template-master (master)$ node assets/scripts/select.js
