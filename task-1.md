@@ -342,8 +342,8 @@ CREATE TABLE customers (
 
 ```
 INSERT INTO customers VALUE
-          (1, 'Natasa', 'Ridge Lane', 'MA', '02452', '4044336003'),
-          (2, 'Aleksandra', 'Trapelo', 'MA', '02452', '6174336003');
+          (501, 'Natasa', 'Ridge Lane', 'MA', '02452', '4044336003'),
+          (502, 'Aleksandra', 'Trapelo', 'MA', '02452', '6174336003');
 ```
 
 - `ALTER TABLE` to add a new column customer_id into the products table;
@@ -353,11 +353,13 @@ INSERT INTO customers VALUE
 ```
 
 
-- Set the customerID of the existing records in "products" table to a VALID customerID of "customers" table
+- Set the customerID of the existing records in "products" table to a VALID customerID of "customers" table;
 
 ```
 UPDATE products SET customer_id = 501;
 ```
+
+Now both records will have the same customer_id.
 
 - add a foreign key constraint on the customer_id columns of the `products` child table to the `customers` parent table, to ensure that every customer_id in the products table always refers to a valid customer_id in the customers table - this is called referential integrity.
 
@@ -378,6 +380,9 @@ quantity	int(10) unsigned	NO		0
 price	decimal(7,2)	NO		99999.99
 customer_id	int(10) unsigned	NO	MUL	0
 ```
+
+
+- Update recodrs to have different customer_id;
 
 ```
 UPDATE products SET customer_id = 502 WHERE productID  = 3;
