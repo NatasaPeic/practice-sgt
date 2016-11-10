@@ -463,3 +463,22 @@ FROM products
 | MD         |  17125.00                |
 +------------+--------------------------+
 ```
+
+
+## TASK #1 continued
+
+- I recall you did a project with CDC data – put this into the database, and see if you can make some queries.
+
+```
+CREATE  TABLE `cdc`.`death_rates` (
+  `iddeath_rates` INT NOT NULL ,
+  `symbol` VARCHAR(45) NOT NULL DEFAULT '' ,
+  `date` YEAR NOT NULL DEFAULT 0 ,
+  `rate` DECIMAL(4,1) NOT NULL ,
+  PRIMARY KEY (`iddeath_rates`) );
+```
+
+This csv file doesn't have headers.
+```
+LOAD DATA LOCAL INFILE '/Users/Buvica/Desktop/death-rate.csv' INTO TABLE death_rates FIELDS TERMINATED BY ',' ENCLOSED BY '"' LINES TERMINATED BY '\n';
+```
