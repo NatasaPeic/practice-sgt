@@ -426,11 +426,18 @@ FROM products
 ```
 
 ```
-+-----------+-------------+
-| name      | Total spent |
-+-----------+-------------+
-|    ABC    | 17125       |
-|Aleksandra | 1751.25     |
-| Natasa    | 125         |
-+-----------+-------------+
++------------+-------------+
+|   name     | Total spent |
++------------+-------------+
+|   ABC      | 17125       |
+| Aleksandra | 1751.25     |
+|  Natasa    | 125         |
++------------+-------------+
+```
+
+- Update State column;
+
+```
+UPDATE `store`.`customers` SET `state`='GA' WHERE `customerID`='502';
+UPDATE `store`.`customers` SET `state`='MD' WHERE `customerID`='504';
 ```
