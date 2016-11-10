@@ -3,7 +3,7 @@
 - Install MySQL and become familiar with running some simple sql queries. Use a GA release http://dev.mysql.com/downloads/mysql/
 
 
-Task #1 completed in `task-1.md` file.
+Task #1 completed in [task-1.md](https://github.com/NatasaPeic/practice-sgt/blob/master/task-1.md).
 
 
 ## TASK #2
