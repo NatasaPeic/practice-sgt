@@ -429,15 +429,52 @@ FROM products
 +------------+-------------+
 |   name     | Total spent |
 +------------+-------------+
-|   ABC      | 17125       |
+| ABC        | 17125.00    |
 | Aleksandra | 1751.25     |
-|  Natasa    | 125         |
+| Natasa     | 125.00      |
 +------------+-------------+
 ```
-
 - Update State column;
 
 ```
 UPDATE `store`.`customers` SET `state`='GA' WHERE `customerID`='502';
 UPDATE `store`.`customers` SET `state`='MD' WHERE `customerID`='504';
+```
+
+
+- For each state list the dollar value of goods sold, sorted alphabetically by amount and then by state.
+
+Sorted alphabetically by state:
+```
+SELECT customers.state, SUM(products.price*products.quantity) AS "Total $ spent per state"
+FROM products
+   INNER JOIN customers
+   ON products.customer_id = customers.customerID
+   GROUP BY customers.state ASC;
+```
+
+
+```
++------------+-------------+
+|   name     | Total spent |
++------------+-------------+
+| GA         |  125.00     |
+| MA         |  1751.25    |
+| MD         |  17125.00   |
++------------+-------------+
+```
+
+
+- Alter `customer` table and add new column;
+
+```
+ALTER TABLE `store`.`customers` ADD COLUMN `number_of_items` INT NOT NULL  AFTER `phone` ;
+```
+
+- Update column `number_of_items`;
+
+```
+UPDATE `store`.`customers` SET `number_of_items`='1' WHERE `customerID`='501';
+UPDATE `store`.`customers` SET `number_of_items`='3' WHERE `customerID`='502';
+UPDATE `store`.`customers` SET `number_of_items`='4' WHERE `customerID`='503';
 ```
