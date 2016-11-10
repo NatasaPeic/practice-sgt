@@ -463,18 +463,3 @@ FROM products
 | MD         |  17125.00   |
 +------------+-------------+
 ```
-
-
-- Alter `customer` table and add new column;
-
-```
-ALTER TABLE `store`.`customers` ADD COLUMN `number_of_items` INT NOT NULL  AFTER `phone` ;
-```
-
-- Update column `number_of_items`;
-
-```
-UPDATE `store`.`customers` SET `number_of_items`='1' WHERE `customerID`='501';
-UPDATE `store`.`customers` SET `number_of_items`='3' WHERE `customerID`='502';
-UPDATE `store`.`customers` SET `number_of_items`='4' WHERE `customerID`='503';
-```
