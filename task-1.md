@@ -414,3 +414,23 @@ UPDATE `store`.`products` SET `productID`='3' WHERE `productID`='8';
 UPDATE `store`.`products` SET `productID`='4' WHERE `productID`='9';
 UPDATE `store`.`products` SET `productID`='5' WHERE `productID`='10';
 ```
+
+- For each customer, list the total amount spent.
+
+```
+SELECT customers.name, SUM(products.price*products.quantity) AS "Total spent"
+FROM products
+   INNER JOIN customers
+   ON products.customer_id = customers.customerID
+   GROUP BY customers.name
+```
+
+```
++-----------+-------------+
+| name      | Total spent |
++-----------+-------------+
+|    ABC    | 17125       |
+|Aleksandra | 1751.25     |
+| Natasa    | 125         |
++-----------+-------------+
+```
