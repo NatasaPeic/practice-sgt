@@ -96,10 +96,6 @@ CREATE  TABLE `bookstore`.`book` (
 ```
 
 ```
-INSERT INTO `bookstore`.`book` (`ISBN`, `title`) VALUES ('1590593324	', 'Beginning MySQL Database Design and Optimization');
-```
-
-```
 mysql> describe book;
 +-------+--------------+------+-----+---------+-------+
 | Field | Type         | Null | Key | Default | Extra |
@@ -110,6 +106,11 @@ mysql> describe book;
 +-------+--------------+------+-----+---------+-------+
 3 rows in set (0.00 sec)
 ```
+
+```
+INSERT INTO `bookstore`.`book` (`ISBN`, `title`) VALUES ('1590593324	', 'Beginning MySQL Database Design and Optimization');
+```
+
 
 ```
 mysql> SELECT * FROM book;
@@ -129,11 +130,7 @@ CREATE  TABLE `bookstore`.`author` (
   PRIMARY KEY (`author_ID`) );
 ```
 
-```
-INSERT INTO `bookstore`.`author` (`author_ID`, `first_name`, `last_name`) VALUES ('1', 'Chad', 'Russell');
-INSERT INTO `bookstore`.`author` (`author_ID`, `first_name`, `last_name`) VALUES ('2', 'Jon', 'Stephens');
-INSERT INTO `bookstore`.`author` (`author_ID`, `first_name`, `last_name`) VALUES ('3', 'Mike', 'Hillyer');
-```
+
 
 ```
 mysql> describe author;
@@ -145,6 +142,12 @@ mysql> describe author;
 | last_name  | varchar(45) | NO   |     |         |       |
 +------------+-------------+------+-----+---------+-------+
 3 rows in set (0.00 sec)
+```
+
+```
+INSERT INTO `bookstore`.`author` (`author_ID`, `first_name`, `last_name`) VALUES ('1', 'Chad', 'Russell');
+INSERT INTO `bookstore`.`author` (`author_ID`, `first_name`, `last_name`) VALUES ('2', 'Jon', 'Stephens');
+INSERT INTO `bookstore`.`author` (`author_ID`, `first_name`, `last_name`) VALUES ('3', 'Mike', 'Hillyer');
 ```
 
 ```
@@ -166,10 +169,7 @@ CREATE  TABLE `bookstore`.`subject` (
   PRIMARY KEY (`subject_ID`) );
 ```
 
-```
-INSERT INTO `bookstore`.`subject` (`subject_ID`, `name`) VALUES ('1', 'MySQL');
-INSERT INTO `bookstore`.`subject` (`subject_ID`, `name`) VALUES ('2', 'Database Design');
-```
+
 
 ```
 mysql> describe subject;
@@ -180,6 +180,11 @@ mysql> describe subject;
 | name       | varchar(45) | NO   |     |         |       |
 +------------+-------------+------+-----+---------+-------+
 2 rows in set (0.00 sec)
+```
+
+```
+INSERT INTO `bookstore`.`subject` (`subject_ID`, `name`) VALUES ('1', 'MySQL');
+INSERT INTO `bookstore`.`subject` (`subject_ID`, `name`) VALUES ('2', 'Database Design');
 ```
 
 ```
@@ -205,9 +210,7 @@ CREATE  TABLE `bookstore`.`publisher` (
   PRIMARY KEY (`idpublisher`) );
 ```
 
-```
-INSERT INTO `bookstore`.`publisher` (`idpublisher`, `name`, `address`, `city`, `state`) VALUES ('1', 'Appress', '2560 Ninth Street, Station 219', 'Berkeley', 'California');
-```
+
 
 ```
 mysql> describe publisher;
@@ -222,6 +225,10 @@ mysql> describe publisher;
 | zip         | int(11)     | NO   |     | 0       |       |
 +-------------+-------------+------+-----+---------+-------+
 6 rows in set (0.00 sec)
+```
+
+```
+INSERT INTO `bookstore`.`publisher` (`idpublisher`, `name`, `address`, `city`, `state`) VALUES ('1', 'Appress', '2560 Ninth Street, Station 219', 'Berkeley', 'California');
 ```
 
 mysql> SELECT * FROM publisher;
