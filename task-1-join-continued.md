@@ -282,9 +282,58 @@ mysql> SELECT * FROM review;
 +------------+-----------+----------------+------------+
 | ISBN       | author_ID | summary        | author_URL |
 +------------+-----------+----------------+------------+
-| 1590593324 |         3 | 	A great book! |            |
+| 1590593324 |         3 | 	A great book! |   http://  |
 +------------+-----------+----------------+------------+
 1 row in set (0.00 sec)
 ```
 
 **In this situation, the URL for the author of the review depends on the Author_ID, and not to the combination of Author_ID and ISBN, which form the composite primary key. To bring the Review table into compliance with 2NF, the Author_URL must be moved to the Author table.**
+
+
+```
+ALTER TABLE `bookstore`.`author` ADD COLUMN `author_URL` VARCHAR(45) NOT NULL DEFAULT ''  AFTER `last_name` ;
+```
+
+```
+mysql> SELECT * FROM author;
++-----------+------------+-----------+------------+
+| author_ID | first_name | last_name | author_URL |
++-----------+------------+-----------+------------+
+|         1 | Chad       | Russell   |   http://  |
+|         2 | Jon        | Stephens  |   http://  |
+|         3 | Mike       | Hillyer   |   http://  |
++-----------+------------+-----------+------------+
+3 rows in set (0.00 sec)
+```
+
+## Third Normal Form
+
+Third Normal Form (3NF) requires that all columns depend directly on the primary key. Tables violate the Third Normal Form when one column depends on another column, which in turn depends on the primary key (a transitive dependency).
+
+One way to identify transitive dependencies is to look at your table and see if any columns would require updating if another column in the table was updated. If such a column exists, it probably violates 3NF.
+
+In the Publisher table the City and State fields are really dependent on the Zip column and not the Publisher_ID. To bring this table into compliance with Third Normal Form, we would need a table based on zip code:
+
+```
+CREATE  TABLE `bookstore`.`zip` (
+  `zip` INT NOT NULL ,
+  `city` VARCHAR(45) NOT NULL DEFAULT '' ,
+  `state` VARCHAR(45) NOT NULL DEFAULT '' ,
+  PRIMARY KEY (`zip`) );
+```
+
+```
+mysql> describe zip;
++-------+-------------+------+-----+---------+-------+
+| Field | Type        | Null | Key | Default | Extra |
++-------+-------------+------+-----+---------+-------+
+| zip   | int(11)     | NO   | PRI | NULL    |       |
+| city  | varchar(45) | NO   |     |         |       |
+| state | varchar(45) | NO   |     |         |       |
++-------+-------------+------+-----+---------+-------+
+3 rows in set (0.00 sec)
+```
+
+```
+INSERT INTO `bookstore`.`zip` (`zip`, `state`) VALUES ('94710', 'California');
+```
