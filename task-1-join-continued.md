@@ -47,11 +47,10 @@ mysql> describe books;
 +-----------+--------------+------+-----+---------+-------+
 | Field     | Type         | Null | Key | Default | Extra |
 +-----------+--------------+------+-----+---------+-------+
-| idbooks   | int(11)      | NO   | PRI | NULL    |       |
+| ISBN      | int(11)      | NO   | PRI | NULL    |       |
 | title     | varchar(255) | NO   |     |         |       |
 | author    | varchar(45)  | NO   |     |         |       |
 | bio       | varchar(255) | NO   |     |         |       |
-| ISBN      | int(11)      | NO   |     | 0       |       |
 | subject   | varchar(45)  | NO   |     |         |       |
 | pages     | int(11)      | NO   |     | 0       |       |
 | publisher | varchar(45)  | NO   |     |         |       |
