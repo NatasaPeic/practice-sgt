@@ -231,6 +231,7 @@ mysql> describe publisher;
 INSERT INTO `bookstore`.`publisher` (`idpublisher`, `name`, `address`, `city`, `state`) VALUES ('1', 'Appress', '2560 Ninth Street, Station 219', 'Berkeley', 'California');
 ```
 
+```
 mysql> SELECT * FROM publisher;
 +-------------+---------+--------------------------------+----------+------------+-----+
 | idpublisher | name    | address                        | city     | state      | zip |
@@ -238,3 +239,52 @@ mysql> SELECT * FROM publisher;
 |           1 | Appress | 2560 Ninth Street, Station 219 | Berkeley | California |   0 |
 +-------------+---------+--------------------------------+----------+------------+-----+
 1 row in set (0.00 sec)
+```
+
+By separating the data into different tables according to the entities each piece of data represents, we can now overcome some of the anomalies mentioned earlier: we can add authors who have not yet written books, we can delete books without losing author or publisher information, and information such as author names are only recoded once, preventing potential inconsistencies when updating.
+
+## Second Normal Form
+
+Where the First Normal Form deals with atomicity of data, the Second Normal Form (or 2NF) deals with relationships between composite key columns and non-key columns. As stated earlier, the normal forms are progressive, so to achieve Second Normal Form, your tables must already be in First Normal Form.
+
+The second normal form (or 2NF) any non-key columns must depend on the entire primary key. In the case of a composite primary key, this means that a non-key column cannot depend on only part of the composite key.
+
+Create review table.
+
+```
+CREATE  TABLE `bookstore`.`review` (
+  `ISBN` INT NOT NULL ,
+  `author_ID` INT NOT NULL DEFAULT 0 ,
+  `summary` VARCHAR(255) NOT NULL DEFAULT '' ,
+  `author_URL` VARCHAR(45) NOT NULL DEFAULT '' ,
+  PRIMARY KEY (`ISBN`) );
+```
+
+```
+mysql> describe review;
++------------+--------------+------+-----+---------+-------+
+| Field      | Type         | Null | Key | Default | Extra |
++------------+--------------+------+-----+---------+-------+
+| ISBN       | int(11)      | NO   | PRI | NULL    |       |
+| author_ID  | int(11)      | NO   |     | 0       |       |
+| summary    | varchar(255) | NO   |     |         |       |
+| author_URL | varchar(45)  | NO   |     |         |       |
++------------+--------------+------+-----+---------+-------+
+4 rows in set (0.00 sec)
+```
+
+```
+INSERT INTO `bookstore`.`review` (`ISBN`, `author_ID`, `summary`) VALUES ('1590593324', '3', '	A great book!');
+```
+
+```
+mysql> SELECT * FROM review;
++------------+-----------+----------------+------------+
+| ISBN       | author_ID | summary        | author_URL |
++------------+-----------+----------------+------------+
+| 1590593324 |         3 | 	A great book! |            |
++------------+-----------+----------------+------------+
+1 row in set (0.00 sec)
+```
+
+**In this situation, the URL for the author of the review depends on the Author_ID, and not to the combination of Author_ID and ISBN, which form the composite primary key. To bring the Review table into compliance with 2NF, the Author_URL must be moved to the Author table.**
