@@ -13,3 +13,8 @@
 
 Task #2 completed in [task-2.md](https://github.com/NatasaPeic/practice-sgt/blob/master/task-2.md) file.
 Scrips needed for this example are within [assets/scripts/insert.js](https://github.com/NatasaPeic/practice-sgt/blob/master/assets/scripts/insert.js) and [assets/scripts/select.js](https://github.com/NatasaPeic/practice-sgt/blob/master/assets/scripts/select.js)
+
+
+## TASK #3
+
+Try out the different joins – left, right, inner and outer.
