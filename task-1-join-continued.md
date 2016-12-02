@@ -42,6 +42,22 @@ CREATE  TABLE `bookstore`.`books` (
 INSERT INTO `bookstore`.`books` (`title`, `author`, `bio`, `ISBN`, `subject`, `pages`, `publisher`) VALUES ('Beginning MySQL Database Design and Optimization', 'Chad Russell, Jon Stephens	', 'Chad Russell is a programmer and network administrator who owns his own Internet hosting company., Jon Stephens is a member of the MySQL AB documentation team.	1590593324	', '1590593324	', 'MySQL, Database Design', '520', 'Apress');
 ```
 
+```
+mysql> describe books;
++-----------+--------------+------+-----+---------+-------+
+| Field     | Type         | Null | Key | Default | Extra |
++-----------+--------------+------+-----+---------+-------+
+| idbooks   | int(11)      | NO   | PRI | NULL    |       |
+| title     | varchar(255) | NO   |     |         |       |
+| author    | varchar(45)  | NO   |     |         |       |
+| bio       | varchar(255) | NO   |     |         |       |
+| ISBN      | int(11)      | NO   |     | 0       |       |
+| subject   | varchar(45)  | NO   |     |         |       |
+| pages     | int(11)      | NO   |     | 0       |       |
+| publisher | varchar(45)  | NO   |     |         |       |
++-----------+--------------+------+-----+---------+-------+
+8 rows in set (0.00 sec)
+```
 
 Table created this way is subject to several anomalies.
 
@@ -71,6 +87,17 @@ CREATE  TABLE `bookstore`.`book` (
 INSERT INTO `bookstore`.`book` (`ISBN`, `title`) VALUES ('1590593324	', 'Beginning MySQL Database Design and Optimization');
 ```
 
+```
+mysql> describe book;
++-------+--------------+------+-----+---------+-------+
+| Field | Type         | Null | Key | Default | Extra |
++-------+--------------+------+-----+---------+-------+
+| ISBN  | int(11)      | NO   | PRI | NULL    |       |
+| title | varchar(255) | NO   |     |         |       |
+| pages | int(11)      | NO   |     | 0       |       |
++-------+--------------+------+-----+---------+-------+
+3 rows in set (0.00 sec)
+```
 
 
 ```
@@ -88,6 +115,19 @@ INSERT INTO `bookstore`.`author` (`author_ID`, `first_name`, `last_name`) VALUES
 ```
 
 ```
+mysql> describe author;
++------------+-------------+------+-----+---------+-------+
+| Field      | Type        | Null | Key | Default | Extra |
++------------+-------------+------+-----+---------+-------+
+| author_ID  | int(11)     | NO   | PRI | NULL    |       |
+| first_name | varchar(45) | NO   |     |         |       |
+| last_name  | varchar(45) | NO   |     |         |       |
++------------+-------------+------+-----+---------+-------+
+3 rows in set (0.00 sec)
+```
+
+
+```
 CREATE  TABLE `bookstore`.`subject` (
   `subject_ID` INT NOT NULL ,
   `name` VARCHAR(45) NOT NULL DEFAULT '' ,
@@ -98,6 +138,18 @@ CREATE  TABLE `bookstore`.`subject` (
 INSERT INTO `bookstore`.`subject` (`subject_ID`, `name`) VALUES ('1', 'MySQL');
 INSERT INTO `bookstore`.`subject` (`subject_ID`, `name`) VALUES ('2', 'Database Design');
 ```
+
+```
+mysql> describe subject;
++------------+-------------+------+-----+---------+-------+
+| Field      | Type        | Null | Key | Default | Extra |
++------------+-------------+------+-----+---------+-------+
+| subject_ID | int(11)     | NO   | PRI | NULL    |       |
+| name       | varchar(45) | NO   |     |         |       |
++------------+-------------+------+-----+---------+-------+
+2 rows in set (0.00 sec)
+```
+
 
 ```
 CREATE  TABLE `bookstore`.`publisher` (
@@ -112,4 +164,19 @@ CREATE  TABLE `bookstore`.`publisher` (
 
 ```
 INSERT INTO `bookstore`.`publisher` (`idpublisher`, `name`, `address`, `city`, `state`) VALUES ('1', 'Appress', '2560 Ninth Street, Station 219', 'Berkeley', 'California');
+```
+
+```
+mysql> describe publisher;
++-------------+-------------+------+-----+---------+-------+
+| Field       | Type        | Null | Key | Default | Extra |
++-------------+-------------+------+-----+---------+-------+
+| idpublisher | int(11)     | NO   | PRI | NULL    |       |
+| name        | varchar(45) | NO   |     |         |       |
+| address     | varchar(45) | NO   |     |         |       |
+| city        | varchar(45) | NO   |     |         |       |
+| state       | varchar(45) | NO   |     |         |       |
+| zip         | int(11)     | NO   |     | 0       |       |
++-------------+-------------+------+-----+---------+-------+
+6 rows in set (0.00 sec)
 ```
