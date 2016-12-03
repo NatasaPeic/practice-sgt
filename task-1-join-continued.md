@@ -343,6 +343,16 @@ mysql> describe zip;
 INSERT INTO `bookstore`.`zip` (`zip`, `state`) VALUES ('94710', 'California');
 ```
 
+```
+mysql> SELECT * FROM zip;
++-------+----------+------------+
+| zip   | city     | state      |
++-------+----------+------------+
+| 94710 | Berkeley | California |
++-------+----------+------------+
+1 row in set (0.00 sec)
+```
+
 
 ## RELATIONSHIPS
 
@@ -352,4 +362,37 @@ INSERT INTO `bookstore`.`zip` (`zip`, `state`) VALUES ('94710', 'California');
 
 To represent a many-to-many relationship in a relational database we need a third table to serve as a link between the two.
 
+
+**EER Model**
 ![Alt text](img1.png "EER Model")
+
+
+
+
+## JOINING TABLES
+
+With our tables now separated by entity, we join the tables together in our SELECT queries and other statements to retrieve and manipulate related data. When joining tables, there are a variety of JOIN syntaxes available, but typically developers use the INNER JOIN and OUTER JOIN syntaxes.
+
+An INNER JOIN query returns one row for each pair or matching rows in the tables being joined. Take our Author and Book_Author tables as an example:
+
+```
+mysql> SELECT * FROM book_author;
++------------+-----------+
+| ISBN       | author_ID |
++------------+-----------+
+| 1590593324 | 1         |
+| 1590593324 | 2         |
++------------+-----------+
+2 rows in set (0.00 sec)
+```
+
+```
+mysql> SELECT * FROM book_subject;
++------------+------------+
+| ISBN       | subject_ID |
++------------+------------+
+| 1590593324 | 1          |
+| 1590593324 | 2          |
++------------+------------+
+2 rows in set (0.01 sec)
+```
