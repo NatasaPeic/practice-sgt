@@ -87,6 +87,8 @@ The first normal form (or 1NF) requires that the values in each column of a tabl
 
 One method for bringing a table into first normal form is to separate the entities contained in the table into separate tables. In our case this would result in Book, Author, Subject and Publisher tables.
 
+
+CREATE table book
 ```
 CREATE  TABLE `bookstore`.`book` (
   `ISBN` INT NOT NULL ,
@@ -122,6 +124,7 @@ mysql> SELECT * FROM book;
 1 row in set (0.01 sec)
 ```
 
+CREATE table author
 ```
 CREATE  TABLE `bookstore`.`author` (
   `author_ID` INT NOT NULL ,
@@ -162,13 +165,14 @@ mysql> SELECT * FROM author;
 3 rows in set (0.00 sec)
 ```
 
+
+CREATE table subject
 ```
 CREATE  TABLE `bookstore`.`subject` (
   `subject_ID` INT NOT NULL ,
   `name` VARCHAR(45) NOT NULL DEFAULT '' ,
   PRIMARY KEY (`subject_ID`) );
 ```
-
 
 
 ```
@@ -199,6 +203,7 @@ mysql> SELECT * FROM subject;
 ```
 
 
+CREATE table publisher
 ```
 CREATE  TABLE `bookstore`.`publisher` (
   `idpublisher` INT NOT NULL ,
