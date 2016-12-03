@@ -76,10 +76,25 @@ mysql> SELECT * FROM orders;
 ```
 
 
-Create a query which will list for each customer the total amount purchased.
+- Create a query which will list for each customer the total amount purchased.
 
-Create a query which list all customers who have not bought “white paper”.
+
+Changes:
+
+```
+ALTER TABLE `store`.`products` CHANGE COLUMN `product_id` `order_id` INT(10) NOT NULL DEFAULT '0'  ;
+```
+
+```
+ALTER TABLE `store`.`customers` DROP COLUMN `number_of_items` ;
+```
 
 ```
 INSERT INTO `store`.`products` (`productID`, `product_CODE`, `name`, `price`) VALUES ('7', 'WHITE PAPER', 'White', '10.25');
 ```
+
+![Alt text](img3.png)
+
+
+
+- Create a query which list all customers who have not bought “white paper”.
