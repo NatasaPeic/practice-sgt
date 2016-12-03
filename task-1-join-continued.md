@@ -567,14 +567,6 @@ mysql> SELECT country_name, state_name
 4 rows in set (0.00 sec)
 ```
 
-## FULL OUTER JOIN
-
-```
-SELECT *
-FROM country
-FULL JOIN state
-ON country.idcountry = state.idcountry;
-```
 
 
 ![Alt text](img2.png)
