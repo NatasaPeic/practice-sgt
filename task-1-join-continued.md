@@ -79,15 +79,6 @@ mysql> SELECT * FROM orders;
 - Create a query which will list for each customer the total amount purchased.
 
 
-Changes:
-
-```
-ALTER TABLE `store`.`products` CHANGE COLUMN `product_id` `order_id` INT(10) NOT NULL DEFAULT '0'  ;
-```
-
-```
-ALTER TABLE `store`.`customers` DROP COLUMN `number_of_items` ;
-```
 
 ```
 INSERT INTO `store`.`products` (`productID`, `product_CODE`, `name`, `price`) VALUES ('7', 'WHITE PAPER', 'White', '10.25');
@@ -135,5 +126,28 @@ mysql> SELECT * FROM orders_products;
 +----------+-----------+
 9 rows in set (0.00 sec)
 ```
+
+
+```
+mysql> SELECT customer_id, SUM(orders.number_of_products * products.price) AS "The total amount purchased"
+    -> FROM orders
+    -> INNER JOIN products
+    -> ON products.product_id = orders.product_id
+    -> GROUP BY orders.customer_id;
++-------------+----------------------------+
+| customer_id | The total amount purchased |
++-------------+----------------------------+
+|         501 |                      29.25 |
+|         502 |                      22.00 |
+|         503 |                     109.25 |
+|         504 |                     151.50 |
++-------------+----------------------------+
+4 rows in set (0.00 sec)
+```
+
+
+
+
+
 
 - Create a query which list all customers who have not bought “white paper”.
