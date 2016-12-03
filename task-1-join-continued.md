@@ -95,6 +95,45 @@ INSERT INTO `store`.`products` (`productID`, `product_CODE`, `name`, `price`) VA
 
 ![Alt text](img3.png)
 
+```
+CREATE  TABLE `store`.`orders_products` (
+  `order_id` INT NOT NULL ,
+  `productID` INT NOT NULL );
+```
 
+```
+ALTER TABLE `store`.`orders_products`
+ADD PRIMARY KEY (`order_id`) ;
+```
+
+```
+INSERT INTO `store`.`orders_products` (`order_id`, `productID`) VALUES ('100', '1');
+INSERT INTO `store`.`orders_products` (`order_id`, `productID`) VALUES ('101', '4');
+INSERT INTO `store`.`orders_products` (`order_id`, `productID`) VALUES ('102', '7');
+INSERT INTO `store`.`orders_products` (`order_id`, `productID`) VALUES ('103', '2');
+INSERT INTO `store`.`orders_products` (`order_id`, `productID`) VALUES ('104', '6');
+INSERT INTO `store`.`orders_products` (`order_id`, `productID`) VALUES ('105', '3');
+INSERT INTO `store`.`orders_products` (`order_id`, `productID`) VALUES ('106', '1');
+INSERT INTO `store`.`orders_products` (`order_id`, `productID`) VALUES ('107', '7');
+INSERT INTO `store`.`orders_products` (`order_id`, `productID`) VALUES ('108', '6');
+```
+
+```
+mysql> SELECT * FROM orders_products;
++----------+-----------+
+| order_id | productID |
++----------+-----------+
+|      100 |         1 |
+|      101 |         4 |
+|      102 |         7 |
+|      103 |         2 |
+|      104 |         6 |
+|      105 |         3 |
+|      106 |         1 |
+|      107 |         7 |
+|      108 |         6 |
++----------+-----------+
+9 rows in set (0.00 sec)
+```
 
 - Create a query which list all customers who have not bought “white paper”.
