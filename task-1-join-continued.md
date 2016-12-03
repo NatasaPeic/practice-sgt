@@ -4,7 +4,8 @@
 
 For the purpose of this excercise, I followed example found http://mikehillyer.com/articles/an-introduction-to-database-normalization/ that was recommended as a reading material. I wanted to get familiar with database normalization as well as using inner, outer, full joins.
 
-## Mike’s Bookstore
+
+## Example #1 - Mike’s Bookstore
 
 - Title
 - Author
@@ -431,4 +432,82 @@ mysql> SELECT first_name, last_name, ISBN
 | Mike       | Hillyer   |       NULL |
 +------------+-----------+------------+
 3 rows in set (0.00 sec)
+```
+
+
+
+## Example #2 - Country/state
+
+```
+CREATE SCHEMA `country_states` ;
+```
+
+CREATE table country
+```
+CREATE  TABLE `country_states`.`country` (
+  `idcountry` INT NOT NULL ,
+  `country_name` VARCHAR(45) NOT NULL DEFAULT '' ,
+  PRIMARY KEY (`idcountry`) );
+```
+
+
+```
+mysql> describe country;
++--------------+-------------+------+-----+---------+----------------+
+| Field        | Type        | Null | Key | Default | Extra          |
++--------------+-------------+------+-----+---------+----------------+
+| idcountry    | int(11)     | NO   | PRI | NULL    | auto_increment |
+| country_name | varchar(45) | NO   |     |         |                |
++--------------+-------------+------+-----+---------+----------------+
+2 rows in set (0.00 sec)
+```
+
+
+```
+INSERT INTO `country_states`.`country` (`idcountry`, `country_name`) VALUES ('1', 'USA');
+INSERT INTO `country_states`.`country` (`idcountry`, `country_name`) VALUES ('2', 'India');
+INSERT INTO `country_states`.`country` (`idcountry`) VALUES ('3');
+```
+
+```
+
+mysql> SELECT * FROM country;
++-----------+--------------+
+| idcountry | country_name |
++-----------+--------------+
+|         1 | USA          |
+|         2 | India        |
+|         3 | China        |
++-----------+--------------+
+3 rows in set (0.00 sec)
+```
+
+
+CREATE table state
+```
+CREATE  TABLE `country_states`.`state` (
+  `idstate` INT NOT NULL AUTO_INCREMENT ,
+  `idcountry` INT DEFAULT NULL ,
+  `state_name` VARCHAR(45) NOT NULL DEFAULT '' ,
+  PRIMARY KEY (`idstate`) );
+```
+
+```
+UPDATE `country_states`.`state` SET `idstate`='4', `idcountry`=NULL, `state_name`='Yunnan' WHERE `idstate`='4';
+UPDATE `country_states`.`state` SET `idstate`='1', `idcountry`='1', `state_name`='California' WHERE `idstate`='1';
+UPDATE `country_states`.`state` SET `idstate`='2', `idcountry`='1', `state_name`='Texas' WHERE `idstate`='2';
+UPDATE `country_states`.`state` SET `idstate`='3', `idcountry`='2', `state_name`='Punjab' WHERE `idstate`='3';
+```
+
+```
+mysql> SELECT * FROM state;
++---------+-----------+------------+
+| idstate | idcountry | state_name |
++---------+-----------+------------+
+|       1 |         1 | California |
+|       2 |         1 | Texas      |
+|       3 |         2 | Punjab     |
+|       4 |      NULL | Yunnan     |
++---------+-----------+------------+
+4 rows in set (0.00 sec)
 ```
