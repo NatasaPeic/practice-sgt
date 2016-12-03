@@ -413,3 +413,22 @@ mysql> SELECT first_name, last_name, ISBN
 +------------+-----------+------------+
 2 rows in set (0.01 sec)
 ```
+
+
+The third author in the Author table is missing because there are no corresponding rows in the Book_Author table. When we need at least one row in the result set for every row in a given table, regardless of matching rows, we use an OUTER JOIN query.
+
+
+```
+mysql> SELECT first_name, last_name, ISBN
+    -> FROM author
+    -> LEFT OUTER JOIN book_author
+    -> ON author.author_ID = book_author.author_ID;
++------------+-----------+------------+
+| first_name | last_name | ISBN       |
++------------+-----------+------------+
+| Chad       | Russell   | 1590593324 |
+| Jon        | Stephens  | 1590593324 |
+| Mike       | Hillyer   |       NULL |
++------------+-----------+------------+
+3 rows in set (0.00 sec)
+```
