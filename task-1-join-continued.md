@@ -511,3 +511,70 @@ mysql> SELECT * FROM state;
 +---------+-----------+------------+
 4 rows in set (0.00 sec)
 ```
+
+
+## INNER JOIN
+
+```
+mysql> SELECT country_name, state_name
+    -> FROM country
+    -> INNER JOIN state
+    -> ON country.idcountry = state.idcountry;
++--------------+------------+
+| country_name | state_name |
++--------------+------------+
+| USA          | California |
+| USA          | Texas      |
+| India        | Punjab     |
++--------------+------------+
+3 rows in set (0.00 sec)
+```
+
+## LEFT JOIN
+
+```
+mysql> SELECT country_name, state_name
+    -> FROM country
+    -> LEFT JOIN state
+    -> ON country.idcountry = state.idcountry;
++--------------+------------+
+| country_name | state_name |
++--------------+------------+
+| USA          | California |
+| USA          | Texas      |
+| India        | Punjab     |
+| China        | NULL       |
++--------------+------------+
+4 rows in set (0.01 sec)
+```
+
+
+## RIGHT JOIN
+
+```
+mysql> SELECT country_name, state_name
+    -> FROM country
+    -> RIGHT JOIN state
+    -> ON country.idcountry = state.idcountry;
++--------------+------------+
+| country_name | state_name |
++--------------+------------+
+| USA          | California |
+| USA          | Texas      |
+| India        | Punjab     |
+| NULL         | Yunnan     |
++--------------+------------+
+4 rows in set (0.00 sec)
+```
+
+## FULL OUTER JOIN
+
+```
+SELECT *
+FROM country
+FULL JOIN state
+ON country.idcountry = state.idcountry;
+```
+
+
+![Alt text](img2.png)
