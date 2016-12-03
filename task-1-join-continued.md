@@ -366,15 +366,7 @@ To represent a many-to-many relationship in a relational database we need a thir
 **EER Model**
 ![Alt text](img1.png "EER Model")
 
-
-
-
-## JOINING TABLES
-
-With our tables now separated by entity, we join the tables together in our SELECT queries and other statements to retrieve and manipulate related data. When joining tables, there are a variety of JOIN syntaxes available, but typically developers use the INNER JOIN and OUTER JOIN syntaxes.
-
-An INNER JOIN query returns one row for each pair or matching rows in the tables being joined. Take our Author and Book_Author tables as an example:
-
+CREATE book_author
 ```
 mysql> SELECT * FROM book_author;
 +------------+-----------+
@@ -386,6 +378,8 @@ mysql> SELECT * FROM book_author;
 2 rows in set (0.00 sec)
 ```
 
+
+CREATE book_subject
 ```
 mysql> SELECT * FROM book_subject;
 +------------+------------+
@@ -394,5 +388,28 @@ mysql> SELECT * FROM book_subject;
 | 1590593324 | 1          |
 | 1590593324 | 2          |
 +------------+------------+
+2 rows in set (0.01 sec)
+```
+
+
+
+## JOINING TABLES
+
+With our tables now separated by entity, we join the tables together in our SELECT queries and other statements to retrieve and manipulate related data. When joining tables, there are a variety of JOIN syntaxes available, but typically developers use the INNER JOIN and OUTER JOIN syntaxes.
+
+An INNER JOIN query returns one row for each pair or matching rows in the tables being joined. Take our Author and Book_Author tables as an example:
+
+
+```
+mysql> SELECT first_name, last_name, ISBN
+    -> FROM author
+    -> INNER JOIN book_author
+    -> ON author.author_ID = book_author.author_ID;
++------------+-----------+------------+
+| first_name | last_name | ISBN       |
++------------+-----------+------------+
+| Chad       | Russell   | 1590593324 |
+| Jon        | Stephens  | 1590593324 |
++------------+-----------+------------+
 2 rows in set (0.01 sec)
 ```
