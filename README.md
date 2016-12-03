@@ -33,4 +33,4 @@ Create a query which will list for each customer the total amount purchased.
 
 Create a query which list all customers who have not bought “white paper”.
 
-[task-1-join-continued.md](https://github.com/NatasaPeic/practice-sgt/blob/master/task-1-join-continued.md)
+- [task-1-join-continued.md](https://github.com/NatasaPeic/practice-sgt/blob/master/task-1-join-continued.md)
