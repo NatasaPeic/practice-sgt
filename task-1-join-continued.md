@@ -342,3 +342,14 @@ mysql> describe zip;
 ```
 INSERT INTO `bookstore`.`zip` (`zip`, `state`) VALUES ('94710', 'California');
 ```
+
+
+## RELATIONSHIPS
+
+- One to (Zero or) One
+- One to (Zero or) Many - (BOOK - PUBLISHER)
+- Many to Many - (BOOK - AUTHOR and BOOK - SUBJECT)
+
+To represent a many-to-many relationship in a relational database we need a third table to serve as a link between the two.
+
+![Alt text](img1.png "EER Model")
