@@ -46,7 +46,7 @@ CREATE  TABLE `store`.`orders` (
   PRIMARY KEY (`order_id, customer_id, product_id`) );
 ```
 
-If a primary key consists of two or more columns it is called a composite primary key. The pair ('order_id, product_id') must then be unique for the table and neither value can be NULL.
+If a primary key consists of two or more columns it is called a composite primary key. The pair ('order_id, customer_id, product_id') must then be unique for the table and neither value can be NULL.
 
 ```
 INSERT INTO `store`.`orders` (`order_id`, `customerID`, `product_id`, `number_of_products`) VALUES ('101', '501', '7', '1');
@@ -60,7 +60,7 @@ mysql> SELECT * FROM orders;
 +----------+-------------+------------+--------------------+
 | order_id | customer_id | product_id | number_of_products |
 +----------+-------------+------------+--------------------+
-|      101 |         501 |          7 |                  1 |
+|      101 |         501 |          5 |                  1 |
 |      102 |         502 |          2 |                  4 |
 |      103 |         503 |          1 |                  5 |
 |      104 |         504 |          7 |                  5 |
@@ -82,10 +82,6 @@ In this situation, the number_of_products depends on the customer_id, and not to
 - Create a query which will list for each customer the total amount purchased.
 
 
-```
-INSERT INTO `store`.`products` (`productID`, `product_CODE`, `name`, `price`) VALUES ('7', 'WHITE PAPER', 'White', '10.25');
-```
-
 ![Alt text](img3.png)
 
 ```
@@ -97,49 +93,39 @@ CREATE  TABLE `store`.`orders_products` (
 
 
 ```
-INSERT INTO `store`.`orders_products` (`order_id`, `product_id`) VALUES ('100', '1');
-INSERT INTO `store`.`orders_products` (`order_id`, `product_id`) VALUES ('101', '4');
-INSERT INTO `store`.`orders_products` (`order_id`, `product_id`) VALUES ('102', '7');
-INSERT INTO `store`.`orders_products` (`order_id`, `product_id`) VALUES ('103', '2');
-INSERT INTO `store`.`orders_products` (`order_id`, `product_id`) VALUES ('104', '6');
-INSERT INTO `store`.`orders_products` (`order_id`, `product_id`) VALUES ('105', '3');
-INSERT INTO `store`.`orders_products` (`order_id`, `product_id`) VALUES ('106', '1');
-INSERT INTO `store`.`orders_products` (`order_id`, `product_id`) VALUES ('107', '7');
-INSERT INTO `store`.`orders_products` (`order_id`, `product_id`) VALUES ('108', '6');
+INSERT INTO `store`.`orders_products` (`order_id`, `product_id`) VALUES ('101', '1');
+INSERT INTO `store`.`orders_products` (`order_id`, `product_id`) VALUES ('102', '2');
+INSERT INTO `store`.`orders_products` (`order_id`, `product_id`) VALUES ('103', '3');
+INSERT INTO `store`.`orders_products` (`order_id`, `product_id`) VALUES ('104', '4');
 ```
 
 ```
 mysql> SELECT * FROM orders_products;
-+----------+-----------+
-| order_id | productID |
-+----------+-----------+
-|      100 |         1 |
-|      101 |         4 |
-|      102 |         7 |
-|      103 |         2 |
-|      104 |         6 |
-|      105 |         3 |
-|      106 |         1 |
-|      107 |         7 |
-|      108 |         6 |
-+----------+-----------+
-9 rows in set (0.00 sec)
++----------+------------+
+| order_id | product_id |
++----------+------------+
+|      101 |          1 |
+|      102 |          2 |
+|      103 |          3 |
+|      104 |          4 |
++----------+------------+
+4 rows in set (0.00 sec)
 ```
 
 
 ```
 mysql> SELECT customer_id, SUM(orders.number_of_products * products.price) AS "The total amount purchased"
-    -> FROM orders
-    -> INNER JOIN products
+    ->     FROM orders
+    -> LEFT JOIN products
     -> ON products.product_id = orders.product_id
     -> GROUP BY orders.customer_id;
 +-------------+----------------------------+
 | customer_id | The total amount purchased |
 +-------------+----------------------------+
-|         501 |                      29.25 |
-|         502 |                      22.00 |
-|         503 |                     109.25 |
-|         504 |                     151.50 |
+|         501 |                      10.25 |
+|         502 |                       9.00 |
+|         503 |                       6.25 |
+|         504 |                      26.25 |
 +-------------+----------------------------+
 4 rows in set (0.00 sec)
 ```
