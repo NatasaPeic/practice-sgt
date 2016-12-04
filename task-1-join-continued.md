@@ -152,7 +152,7 @@ mysql> SELECT DISTINCT customers.name
 
 
 
-**Join table practice**
+## Relationships
 
 Add a foreign key constraint
 
