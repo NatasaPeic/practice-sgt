@@ -72,9 +72,6 @@ mysql> SELECT * FROM orders;
 
 
 
-
-
-
 - Create a query which will list for each customer the total amount purchased.
 
 ```
@@ -214,7 +211,7 @@ ALTER TABLE orders_products ADD FOREIGN KEY (product_id) REFERENCES products (pr
 CREATE  TABLE `store`.`orders_products` (
   `order_id` INT NOT NULL ,
   `product_id` INT NOT NULL ,
-  PRIMARY KEY (`order_id`, `product_id`) );
+  PRIMARY KEY (`product_id`) );
 ```
 
 
@@ -231,8 +228,8 @@ mysql> SELECT * FROM orders_products;
 | order_id | product_id |
 +----------+------------+
 |      101 |          1 |
-|      102 |          2 |
-|      103 |          3 |
+|      100 |          2 |
+|      100 |          3 |
 |      104 |          4 |
 +----------+------------+
 4 rows in set (0.00 sec)
