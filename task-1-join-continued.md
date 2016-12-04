@@ -199,6 +199,23 @@ mysql> SELECT customer_id, SUM(orders.number_of_products * products.price) AS "T
 4 rows in set (0.00 sec)
 ```
 
+This query also falls into simpliest approach where one customer purchases ceratin number of one item.
+
+Pracicing querying from 3 tables (orders, products, orders_products)
+
+```
+mysql> SELECT products.product_CODE AS `Product code`
+    -> FROM orders_products
+    -> JOIN products ON orders_products.product_id = products.productID
+    -> JOIN orders ON orders_products.order_id = orders.order_id
+    -> WHERE products.name = 'Blue';
++--------------+
+| Product code |
++--------------+
+| PEN          |
++--------------+
+1 row in set (0.01 sec)
+```
 
 
 
@@ -266,20 +283,9 @@ mysql> SELECT DISTINCT customers.name
 
 
 
-## Relationships
-
-
 
 ```
 ALTER TABLE `store`.`products` DROP COLUMN `product_id`
 , DROP PRIMARY KEY
 , ADD PRIMARY KEY (`productID`) ;
-```
-
-```
-SELECT products.name
-FROM orders_products
-JOIN products ON orders_products.product_id = products.productID
-JOIN orders ON orders_products.order_id = orders.order_id
-WHERE NOT (products.productID = 5);
 ```
