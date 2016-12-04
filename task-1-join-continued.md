@@ -68,7 +68,84 @@ mysql> SELECT * FROM orders;
 4 rows in set (0.00 sec)
 ```
 
+This is simpliest example where a customer purchases certain number of only one item per order. What if customer wants to purchase certain number of several items and not just one? We introduce many to many relationship between orders and products.
 
+Add a foreign key constraint
+
+```
+ALTER TABLE orders_products ADD FOREIGN KEY (order_id) REFERENCES orders (order_id);
+```
+
+```
+ALTER TABLE orders_products ADD FOREIGN KEY (product_id) REFERENCES products (productID);
+```
+
+Error.
+
+
+Ran into this problem twice:
+
+```
+SHOW ENGINE INNODB STATUS
+```
+**LATEST FOREIGN KEY ERROR**
+
+2016-12-03 19:14:57 0x700000dd9000 Error in foreign key constraint of table store/#sql-5e_1d:
+FOREIGN KEY (product_id) REFERENCES products (productID):
+Cannot find an index in the referenced table where the
+referenced columns appear as the first columns, or column types
+in the table and the referenced table do not match for constraint.
+Note that the internal storage type of ENUM and SET changed in
+tables created with >= InnoDB-4.1.12, and such columns in old tables
+cannot be referenced by such columns in new tables.
+Please refer to http://dev.mysql.com/doc/refman/5.7/en/innodb-foreign-key-constraints.html for correct foreign key definition.
+
+
+**_Keys have to be the same data types._**
+
+
+```
+ALTER TABLE `store`.`orders_products` CHANGE COLUMN `order_id` `order_id` INT(11) UNSIGNED NOT NULL  , CHANGE COLUMN `product_id` `product_id` INT(11) UNSIGNED NOT NULL  ;
+```
+
+
+```
+ALTER TABLE orders_products ADD FOREIGN KEY (product_id) REFERENCES products (productID);
+```
+
+
+
+```
+CREATE  TABLE `store`.`orders_products` (
+  `order_id` INT NOT NULL ,
+  `product_id` INT NOT NULL ,
+  PRIMARY KEY (`product_id`) );
+```
+
+
+```
+INSERT INTO `store`.`orders_products` (`order_id`, `product_id`) VALUES ('101', '1');
+INSERT INTO `store`.`orders_products` (`order_id`, `product_id`) VALUES ('102', '2');
+INSERT INTO `store`.`orders_products` (`order_id`, `product_id`) VALUES ('103', '3');
+INSERT INTO `store`.`orders_products` (`order_id`, `product_id`) VALUES ('104', '4');
+```
+
+```
+mysql> SELECT * FROM orders_products;
++----------+------------+
+| order_id | product_id |
++----------+------------+
+|      101 |          1 |
+|      100 |          2 |
+|      100 |          3 |
+|      104 |          4 |
++----------+------------+
+4 rows in set (0.00 sec)
+```
+
+![Alt text](img3.png)
+
+Now a customer can purchase certain number of several items per order.
 
 
 
@@ -188,82 +265,7 @@ mysql> SELECT DISTINCT customers.name
 
 ## Relationships
 
-Add a foreign key constraint
 
-```
-ALTER TABLE orders_products ADD FOREIGN KEY (order_id) REFERENCES orders (order_id);
-```
-
-```
-ALTER TABLE orders_products ADD FOREIGN KEY (product_id) REFERENCES products (productID);
-```
-
-Error.
-
-
-Ran into this problem twice:
-
-```
-SHOW ENGINE INNODB STATUS
-```
-**LATEST FOREIGN KEY ERROR**
-
-2016-12-03 19:14:57 0x700000dd9000 Error in foreign key constraint of table store/#sql-5e_1d:
-FOREIGN KEY (product_id) REFERENCES products (productID):
-Cannot find an index in the referenced table where the
-referenced columns appear as the first columns, or column types
-in the table and the referenced table do not match for constraint.
-Note that the internal storage type of ENUM and SET changed in
-tables created with >= InnoDB-4.1.12, and such columns in old tables
-cannot be referenced by such columns in new tables.
-Please refer to http://dev.mysql.com/doc/refman/5.7/en/innodb-foreign-key-constraints.html for correct foreign key definition.
-
-
-**_Keys have to be the same data types._**
-
-
-
-
-```
-ALTER TABLE `store`.`orders_products` CHANGE COLUMN `order_id` `order_id` INT(11) UNSIGNED NOT NULL  , CHANGE COLUMN `product_id` `product_id` INT(11) UNSIGNED NOT NULL  ;
-```
-
-
-```
-ALTER TABLE orders_products ADD FOREIGN KEY (product_id) REFERENCES products (productID);
-```
-
-
-
-```
-CREATE  TABLE `store`.`orders_products` (
-  `order_id` INT NOT NULL ,
-  `product_id` INT NOT NULL ,
-  PRIMARY KEY (`product_id`) );
-```
-
-
-```
-INSERT INTO `store`.`orders_products` (`order_id`, `product_id`) VALUES ('101', '1');
-INSERT INTO `store`.`orders_products` (`order_id`, `product_id`) VALUES ('102', '2');
-INSERT INTO `store`.`orders_products` (`order_id`, `product_id`) VALUES ('103', '3');
-INSERT INTO `store`.`orders_products` (`order_id`, `product_id`) VALUES ('104', '4');
-```
-
-```
-mysql> SELECT * FROM orders_products;
-+----------+------------+
-| order_id | product_id |
-+----------+------------+
-|      101 |          1 |
-|      100 |          2 |
-|      100 |          3 |
-|      104 |          4 |
-+----------+------------+
-4 rows in set (0.00 sec)
-```
-
-![Alt text](img3.png)
 
 ```
 ALTER TABLE `store`.`products` DROP COLUMN `product_id`
