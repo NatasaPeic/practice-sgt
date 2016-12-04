@@ -14,6 +14,7 @@ UPDATE `store`.`products` SET `product_id`='1' WHERE `productID`='2';
 UPDATE `store`.`products` SET `product_id`='2' WHERE `productID`='3';
 UPDATE `store`.`products` SET `product_id`='1' WHERE `productID`='4';
 UPDATE `store`.`products` SET `product_id`='3' WHERE `productID`='5';
+UPDATE `store`.`products` SET `product_id`='3' WHERE `productID`='6';
 ```
 
 ```
