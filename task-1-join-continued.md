@@ -70,6 +70,35 @@ mysql> SELECT * FROM orders;
 
 This is simpliest example where a customer purchases certain number of only one item per order. What if customer wants to purchase certain number of several items and not just one? We introduce many to many relationship between orders and products.
 
+
+```
+CREATE  TABLE `store`.`orders_products` (
+  `order_id` INT NOT NULL ,
+  `product_id` INT NOT NULL ,
+  PRIMARY KEY (`product_id`) );
+```
+
+
+```
+INSERT INTO `store`.`orders_products` (`order_id`, `product_id`) VALUES ('101', '1');
+INSERT INTO `store`.`orders_products` (`order_id`, `product_id`) VALUES ('102', '2');
+INSERT INTO `store`.`orders_products` (`order_id`, `product_id`) VALUES ('103', '3');
+INSERT INTO `store`.`orders_products` (`order_id`, `product_id`) VALUES ('104', '4');
+```
+
+```
+mysql> SELECT * FROM orders_products;
++----------+------------+
+| order_id | product_id |
++----------+------------+
+|      101 |          1 |
+|      100 |          2 |
+|      100 |          3 |
+|      104 |          4 |
++----------+------------+
+4 rows in set (0.00 sec)
+```
+
 Add a foreign key constraint
 
 ```
@@ -115,33 +144,7 @@ ALTER TABLE orders_products ADD FOREIGN KEY (product_id) REFERENCES products (pr
 
 
 
-```
-CREATE  TABLE `store`.`orders_products` (
-  `order_id` INT NOT NULL ,
-  `product_id` INT NOT NULL ,
-  PRIMARY KEY (`product_id`) );
-```
 
-
-```
-INSERT INTO `store`.`orders_products` (`order_id`, `product_id`) VALUES ('101', '1');
-INSERT INTO `store`.`orders_products` (`order_id`, `product_id`) VALUES ('102', '2');
-INSERT INTO `store`.`orders_products` (`order_id`, `product_id`) VALUES ('103', '3');
-INSERT INTO `store`.`orders_products` (`order_id`, `product_id`) VALUES ('104', '4');
-```
-
-```
-mysql> SELECT * FROM orders_products;
-+----------+------------+
-| order_id | product_id |
-+----------+------------+
-|      101 |          1 |
-|      100 |          2 |
-|      100 |          3 |
-|      104 |          4 |
-+----------+------------+
-4 rows in set (0.00 sec)
-```
 
 ![Alt text](img3.png)
 
