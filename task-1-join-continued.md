@@ -81,38 +81,6 @@ In this situation, the number_of_products depends on the customer_id, and not to
 
 - Create a query which will list for each customer the total amount purchased.
 
-
-![Alt text](img3.png)
-
-```
-CREATE  TABLE `store`.`orders_products` (
-  `order_id` INT NOT NULL ,
-  `product_id` INT NOT NULL ,
-  PRIMARY KEY (`order_id`, `product_id`) );
-```
-
-
-```
-INSERT INTO `store`.`orders_products` (`order_id`, `product_id`) VALUES ('101', '1');
-INSERT INTO `store`.`orders_products` (`order_id`, `product_id`) VALUES ('102', '2');
-INSERT INTO `store`.`orders_products` (`order_id`, `product_id`) VALUES ('103', '3');
-INSERT INTO `store`.`orders_products` (`order_id`, `product_id`) VALUES ('104', '4');
-```
-
-```
-mysql> SELECT * FROM orders_products;
-+----------+------------+
-| order_id | product_id |
-+----------+------------+
-|      101 |          1 |
-|      102 |          2 |
-|      103 |          3 |
-|      104 |          4 |
-+----------+------------+
-4 rows in set (0.00 sec)
-```
-
-
 ```
 mysql> SELECT customer_id, SUM(orders.number_of_products * products.price) AS "The total amount purchased"
     ->     FROM orders
@@ -230,3 +198,35 @@ ALTER TABLE `store`.`orders_products` CHANGE COLUMN `order_id` `order_id` INT(11
 ```
 ALTER TABLE orders_products ADD FOREIGN KEY (product_id) REFERENCES products (productID);
 ```
+
+
+
+```
+CREATE  TABLE `store`.`orders_products` (
+  `order_id` INT NOT NULL ,
+  `product_id` INT NOT NULL ,
+  PRIMARY KEY (`order_id`, `product_id`) );
+```
+
+
+```
+INSERT INTO `store`.`orders_products` (`order_id`, `product_id`) VALUES ('101', '1');
+INSERT INTO `store`.`orders_products` (`order_id`, `product_id`) VALUES ('102', '2');
+INSERT INTO `store`.`orders_products` (`order_id`, `product_id`) VALUES ('103', '3');
+INSERT INTO `store`.`orders_products` (`order_id`, `product_id`) VALUES ('104', '4');
+```
+
+```
+mysql> SELECT * FROM orders_products;
++----------+------------+
+| order_id | product_id |
++----------+------------+
+|      101 |          1 |
+|      102 |          2 |
+|      103 |          3 |
+|      104 |          4 |
++----------+------------+
+4 rows in set (0.00 sec)
+```
+
+![Alt text](img3.png)
