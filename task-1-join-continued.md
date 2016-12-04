@@ -68,10 +68,6 @@ mysql> SELECT * FROM orders;
 4 rows in set (0.00 sec)
 ```
 
-This approach violates Second Normal Form. The second normal form (or 2NF) any non-key columns must depend on the entire primary key. In the case of a composite primary key, this means that a non-key column cannot depend on only part of the composite key.
-
-In this situation, the number_of_products depends on the customer_id, and not to the combination of order_id and customer_id and product_id, which form the composite primary key. To bring the order table into compliance with 2NF, the number_of_products must be moved to the customer table.
-
 
 
 
