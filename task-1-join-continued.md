@@ -236,3 +236,17 @@ mysql> SELECT * FROM orders_products;
 ```
 
 ![Alt text](img3.png)
+
+```
+ALTER TABLE `store`.`products` DROP COLUMN `product_id`
+, DROP PRIMARY KEY
+, ADD PRIMARY KEY (`productID`) ;
+```
+
+```
+SELECT products.name
+FROM orders_products
+JOIN products ON orders_products.product_id = products.productID
+JOIN orders ON orders_products.order_id = orders.order_id
+WHERE NOT (products.productID = 5);
+```
