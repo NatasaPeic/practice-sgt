@@ -35,6 +35,7 @@ mysql> SELECT * FROM products;
 - Create a new table orders with fields order_id, customer_id, product_id, number_of_products. Populate with some data. Eg.
 In amazon you can order several products and multiple numbers of each product.
 
+Typical approach:
 
 ```
 CREATE  TABLE `store`.`orders` (
@@ -42,19 +43,16 @@ CREATE  TABLE `store`.`orders` (
   `customer_id` INT NOT NULL ,
   `product_id` INT NOT NULL ,
   `number_of_products` INT NOT NULL ,
-  PRIMARY KEY (`order_id`) );
+  PRIMARY KEY (`order_id, customer_id, product_id`) );
 ```
 
+If a primary key consists of two or more columns it is called a composite primary key. The pair ('order_id, product_id') must then be unique for the table and neither value can be NULL.
+
 ```
-INSERT INTO `store`.`orders` (`order_id`, `customer_id`, `product_id`, `number_of_products`) VALUES ('100', '501', '1', '10');
-INSERT INTO `store`.`orders` (`order_id`, `customer_id`, `product_id`, `number_of_products`) VALUES ('101', '501', '4', '2');
-INSERT INTO `store`.`orders` (`order_id`, `customer_id`, `product_id`, `number_of_products`) VALUES ('102', '501', '7', '1');
-INSERT INTO `store`.`orders` (`order_id`, `customer_id`, `product_id`, `number_of_products`) VALUES ('103', '503', '2', '4');
-INSERT INTO `store`.`orders` (`order_id`, `customer_id`, `product_id`, `number_of_products`) VALUES ('104', '503', '6', '1');
-INSERT INTO `store`.`orders` (`order_id`, `customer_id`, `product_id`, `number_of_products`) VALUES ('105', '502', '3', '3');
-INSERT INTO `store`.`orders` (`order_id`, `customer_id`, `product_id`, `number_of_products`) VALUES ('106', '502', '1', '5');
-INSERT INTO `store`.`orders` (`order_id`, `customer_id`, `product_id`, `number_of_products`) VALUES ('107', '504', '7', '5');
-INSERT INTO `store`.`orders` (`order_id`, `customer_id`, `product_id`, `number_of_products`) VALUES ('108', '504', '6', '1');
+INSERT INTO `store`.`orders` (`order_id`, `customerID`, `product_id`, `number_of_products`) VALUES ('101', '501', '7', '1');
+INSERT INTO `store`.`orders` (`order_id`, `customerID`, `product_id`, `number_of_products`) VALUES ('102', '503', '2', '4');
+INSERT INTO `store`.`orders` (`order_id`, `customerID`, `product_id`, `number_of_products`) VALUES ('103', '502', '1', '5');
+INSERT INTO `store`.`orders` ( `order_id`, `customerID`, `product_id`, `number_of_products`) VALUES ( '104', '504', '7', '5');
 ```
 
 ```
@@ -62,22 +60,26 @@ mysql> SELECT * FROM orders;
 +----------+-------------+------------+--------------------+
 | order_id | customer_id | product_id | number_of_products |
 +----------+-------------+------------+--------------------+
-|      100 |         501 |          1 |                 10 |
-|      101 |         501 |          4 |                  2 |
-|      102 |         501 |          7 |                  1 |
-|      103 |         503 |          2 |                  4 |
-|      104 |         503 |          6 |                  1 |
-|      105 |         502 |          3 |                  3 |
-|      106 |         502 |          1 |                  5 |
-|      107 |         504 |          7 |                  5 |
-|      108 |         504 |          6 |                  1 |
+|      101 |         501 |          7 |                  1 |
+|      102 |         502 |          2 |                  4 |
+|      103 |         503 |          1 |                  5 |
+|      104 |         504 |          7 |                  5 |
 +----------+-------------+------------+--------------------+
-9 rows in set (0.00 sec)
+4 rows in set (0.00 sec)
 ```
+
+This approach violates Second Normal Form. The second normal form (or 2NF) any non-key columns must depend on the entire primary key. In the case of a composite primary key, this means that a non-key column cannot depend on only part of the composite key.
+
+In this situation, the number_of_products depends on the customer_id, and not to the combination of order_id and customer_id and product_id, which form the composite primary key. To bring the order table into compliance with 2NF, the number_of_products must be moved to the customer table.
+
+
+
+
+
+
 
 
 - Create a query which will list for each customer the total amount purchased.
-
 
 
 ```
@@ -93,17 +95,6 @@ CREATE  TABLE `store`.`orders_products` (
   PRIMARY KEY (`order_id`, `product_id`) );
 ```
 
-
-```
-CREATE TABLE orders_products (
-         order_id   INT UNSIGNED  NOT NULL,
-         product_id  INT UNSIGNED  NOT NULL,
-         PRIMARY KEY (order_id, product_id),
-                     -- uniqueness
-         FOREIGN KEY (order_id)  REFERENCES orders (order_id),
-         FOREIGN KEY (product_id) REFERENCES products (product_id)
-       );
-```
 
 ```
 INSERT INTO `store`.`orders_products` (`order_id`, `product_id`) VALUES ('100', '1');
@@ -157,9 +148,57 @@ mysql> SELECT customer_id, SUM(orders.number_of_products * products.price) AS "T
 
 
 
-
 - Create a query which list all customers who have not bought “white paper”.
 
+
+```
+ALTER TABLE `store`.`customers` ADD COLUMN `order_id` INT NOT NULL  AFTER `number_of_products` ;
+```
+
+
+```
+UPDATE `store`.`customers` SET `order_id`='101' WHERE `customerID`='501';
+UPDATE `store`.`customers` SET `order_id`='103' WHERE `customerID`='502';
+UPDATE `store`.`customers` SET `order_id`='102' WHERE `customerID`='503';
+```
+
+```
+mysql> SELECT * FROM customers;
++------------+------------+------------+-------+----------+------------+--------------------+----------+
+| customerID | name       | address    | state | zip_code | phone      | number_of_products | order_id |
++------------+------------+------------+-------+----------+------------+--------------------+----------+
+|        501 | Aleksandra | Trapelo    | MA    | 02452    | 6174336003 |                  1 |      101 |
+|        502 | Natasa     | Ridge Lane | GA    | 02452    | 4044336003 |                  2 |      102 |
+|        503 | XYZ        | Ridge Lane | MA    | 02452    | 4044336003 |                  3 |      103 |
+|        504 | ABC        | Trapelo    | MD    | 02452    | 6174336003 |                  4 |      104 |
++------------+------------+------------+-------+----------+------------+--------------------+----------+
+4 rows in set (0.00 sec)
+```
+
+
+```
+mysql> SELECT DISTINCT customers.name
+    -> FROM customers
+    -> LEFT JOIN orders
+    -> ON customers.order_id = orders.order_id
+    -> WHERE NOT (product_id = 7);
++--------+
+| name   |
++--------+
+| Natasa |
+| XYZ    |
+| ABC    |
++--------+
+3 rows in set (0.00 sec)
+```
+
+
+
+
+
+
+
+**Join table practice**
 
 Add a foreign key constraint
 
@@ -176,7 +215,9 @@ Error.
 
 Ran into this problem twice:
 
-
+```
+SHOW ENGINE INNODB STATUS
+```
 **LATEST FOREIGN KEY ERROR**
 
 2016-12-03 19:14:57 0x700000dd9000 Error in foreign key constraint of table store/#sql-5e_1d:
@@ -189,8 +230,8 @@ tables created with >= InnoDB-4.1.12, and such columns in old tables
 cannot be referenced by such columns in new tables.
 Please refer to http://dev.mysql.com/doc/refman/5.7/en/innodb-foreign-key-constraints.html for correct foreign key definition.
 
-Keys have to be the same data types.
-http://stackoverflow.com/questions/21526055/mysql-cannot-create-foreign-key-constraint
+
+**_Keys have to be the same data types._**
 
 
 
