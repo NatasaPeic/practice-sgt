@@ -161,7 +161,7 @@ mysql> SELECT customer_id, SUM(orders.number_of_products * products.price) AS "T
 - Create a query which list all customers who have not bought “white paper”.
 
 
-- Add a foreign key constraint
+Add a foreign key constraint
 
 ```
 ALTER TABLE orders_products ADD FOREIGN KEY (order_id) REFERENCES orders (order_id);
@@ -176,9 +176,9 @@ Error.
 
 Ran into this problem twice:
 
-------------------------
-LATEST FOREIGN KEY ERROR
-------------------------
+
+**LATEST FOREIGN KEY ERROR**
+
 2016-12-03 19:14:57 0x700000dd9000 Error in foreign key constraint of table store/#sql-5e_1d:
 FOREIGN KEY (product_id) REFERENCES products (productID):
 Cannot find an index in the referenced table where the
