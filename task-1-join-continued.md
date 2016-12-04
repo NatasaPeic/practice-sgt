@@ -1,4 +1,4 @@
-## TASK #1 continued
+## TASK #4
 
 - Remove the quantity and customer_id from the products table. Also insert a product_id field.
 
@@ -68,7 +68,7 @@ mysql> SELECT * FROM orders;
 4 rows in set (0.00 sec)
 ```
 
-This is simpliest example where a customer purchases certain number of only one item per order. What if customer wants to purchase certain number of several items and not just one? We introduce many to many relationship between orders and products.
+This is the simpliest example where a customer purchases certain number of only one item per order. What if customer wants to purchase certain number of several items and not just one? We introduce many to many relationship between orders and products.
 
 
 ```
@@ -234,6 +234,7 @@ mysql> SELECT customers.name AS `Customer name`, SUM(customers.number_of_product
 
 - Create a query which list all customers who have not bought “white paper”.
 
+Introducing one to many relationship between customers and orders.
 
 ```
 ALTER TABLE `store`.`customers` ADD COLUMN `order_id` INT NOT NULL  AFTER `number_of_products` ;
@@ -287,11 +288,4 @@ mysql> SELECT DISTINCT customers.name
 | ABC    |
 +--------+
 3 rows in set (0.00 sec)
-```
-
-
-```
-ALTER TABLE `store`.`products` DROP COLUMN `product_id`
-, DROP PRIMARY KEY
-, ADD PRIMARY KEY (`productID`) ;
 ```
