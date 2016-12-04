@@ -129,6 +129,19 @@ mysql> SELECT * FROM customers;
 4 rows in set (0.00 sec)
 ```
 
+```
+mysql> SELECT * FROM orders;
++----------+-------------+------------+--------------------+
+| order_id | customer_id | product_id | number_of_products |
++----------+-------------+------------+--------------------+
+|      101 |         501 |          5 |                  1 |
+|      102 |         502 |          2 |                  4 |
+|      103 |         503 |          1 |                  5 |
+|      104 |         504 |          7 |                  5 |
++----------+-------------+------------+--------------------+
+4 rows
+```
+
 
 ```
 mysql> SELECT DISTINCT customers.name
