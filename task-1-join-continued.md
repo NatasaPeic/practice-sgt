@@ -170,52 +170,62 @@ mysql> SELECT products.product_CODE AS `Product code`
 
 - Create a query which will list for each customer the total amount purchased.
 
+Introducing many to many relationship between products and customers.
+
 ```
-mysql> SELECT * FROM orders;
-+----------+-------------+------------+--------------------+
-| order_id | customer_id | product_id | number_of_products |
-+----------+-------------+------------+--------------------+
-|      101 |         501 |          5 |                  1 |
-|      102 |         502 |          2 |                  4 |
-|      103 |         503 |          1 |                  5 |
-|      104 |         504 |          7 |                  5 |
-+----------+-------------+------------+--------------------+
+CREATE  TABLE `store`.`products_customers` (
+  `productID` INT NOT NULL ,
+  `customerID` INT NOT NULL ,
+  PRIMARY KEY (`productID`, `customerID`) );
+```
+
+
+```
+INSERT INTO `store`.`products_customers` (`productID`, `customerID`) VALUES ('1', '501');
+INSERT INTO `store`.`products_customers` (`productID`, `customerID`) VALUES ('2', '501');
+INSERT INTO `store`.`products_customers` (`productID`, `customerID`) VALUES ('3', '502');
+INSERT INTO `store`.`products_customers` (`productID`, `customerID`) VALUES ('2', '502');
+```
+
+```
+mysql> SELECT * FROM products_customers;
++-----------+------------+
+| productID | customerID |
++-----------+------------+
+|         1 |        501 |
+|         2 |        501 |
+|         2 |        502 |
+|         3 |        502 |
++-----------+------------+
 4 rows in set (0.00 sec)
 ```
 
+Add a foreign key constraint:
+
 ```
-mysql> SELECT * FROM products;
-+-----------+--------------+--------+--------+------------+
-| productID | product_CODE | name   | price  | product_id |
-+-----------+--------------+--------+--------+------------+
-|         1 | PEN          | Blue   |   1.25 |          1 |
-|         2 | PEN          | Red    |   2.25 |          2 |
-|         3 | NOTEBOOK     | Blank  |   5.25 |          3 |
-|         4 | MARKER       | Yellow |   3.25 |          4 |
-|         5 | PAPER        | White  |   1.25 |          5 |
-|         6 | DESK         | Brown  | 100.25 |          6 |
-+-----------+--------------+--------+--------+------------+
-6 rows in set (0.00 sec)
+ALTER TABLE products_customers ADD FOREIGN KEY (productID) REFERENCES products (productID);
+```
+```
+ALTER TABLE `store`.`customers` CHANGE COLUMN `customerID` `customerID` INT(10) NOT NULL;
+```
+```
+ALTER TABLE products_customers ADD FOREIGN KEY (customerID) REFERENCES customers (customerID);
 ```
 
 ```
-mysql> SELECT customer_id, SUM(orders.number_of_products * products.price) AS "The total amount purchased"
-    ->     FROM orders
-    -> LEFT JOIN products
-    -> ON products.product_id = orders.product_id
-    -> GROUP BY orders.customer_id;
-+-------------+----------------------------+
-| customer_id | The total amount purchased |
-+-------------+----------------------------+
-|         501 |                      10.25 |
-|         502 |                       9.00 |
-|         503 |                       6.25 |
-|         504 |                      26.25 |
-+-------------+----------------------------+
-4 rows in set (0.00 sec)
+mysql> SELECT customers.name AS `Customer name`, SUM(customers.number_of_products * products.price) AS "The total amount purchased"
+    -> FROM products_customers
+    -> JOIN products ON products_customers.productID = products.productID
+    -> JOIN customers ON products_customers.customerID = customers.customerID
+    -> GROUP BY customers.name;
++---------------+----------------------------+
+| Customer name | The total amount purchased |
++---------------+----------------------------+
+| Aleksandra    |                       3.50 |
+| Natasa        |                      15.00 |
++---------------+----------------------------+
+2 rows in set (0.00 sec)
 ```
-
-This query also falls into simpliest approach where one customer purchases ceratin number of one item.
 
 
 
@@ -278,12 +288,6 @@ mysql> SELECT DISTINCT customers.name
 +--------+
 3 rows in set (0.00 sec)
 ```
-
-
-
-
-
-
 
 
 ```
