@@ -75,6 +75,34 @@ mysql> SELECT * FROM orders;
 - Create a query which will list for each customer the total amount purchased.
 
 ```
+mysql> SELECT * FROM orders;
++----------+-------------+------------+--------------------+
+| order_id | customer_id | product_id | number_of_products |
++----------+-------------+------------+--------------------+
+|      101 |         501 |          5 |                  1 |
+|      102 |         502 |          2 |                  4 |
+|      103 |         503 |          1 |                  5 |
+|      104 |         504 |          7 |                  5 |
++----------+-------------+------------+--------------------+
+4 rows in set (0.00 sec)
+```
+
+```
+mysql> SELECT * FROM products;
++-----------+--------------+--------+--------+------------+
+| productID | product_CODE | name   | price  | product_id |
++-----------+--------------+--------+--------+------------+
+|         1 | PEN          | Blue   |   1.25 |          1 |
+|         2 | PEN          | Red    |   2.25 |          2 |
+|         3 | NOTEBOOK     | Blank  |   5.25 |          3 |
+|         4 | MARKER       | Yellow |   3.25 |          4 |
+|         5 | PAPER        | White  |   1.25 |          5 |
+|         6 | DESK         | Brown  | 100.25 |          6 |
++-----------+--------------+--------+--------+------------+
+6 rows in set (0.00 sec)
+```
+
+```
 mysql> SELECT customer_id, SUM(orders.number_of_products * products.price) AS "The total amount purchased"
     ->     FROM orders
     -> LEFT JOIN products
